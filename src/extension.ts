@@ -1,4 +1,7 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
+import * as fs from 'fs';
+
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Active');
@@ -12,7 +15,10 @@ export function activate(context: vscode.ExtensionContext) {
 				{}
 			);
 
-			panel.webview.html = require("./webview.html")
+		//ty ViníciusPJ (https://stackoverflow.com/users/2180607/vin%c3%adciuspj)
+		const filePath: vscode.Uri = vscode.Uri.file(path.join(context.extensionPath, 'src', 'webview.html'));
+		panel.webview.html = fs.readFileSync(filePath.fsPath, 'utf8');
+
 		} catch(e) {
 			console.log((e as Error).message)
 			const panel = vscode.window.createWebviewPanel(
@@ -48,3 +54,5 @@ function errorwebview() {
 }
 
 export function deactivate() {}
+
+
