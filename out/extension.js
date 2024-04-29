@@ -28,8 +28,15 @@ const vscode = __importStar(require("vscode"));
 function activate(context) {
     console.log('Active');
     context.subscriptions.push(vscode.commands.registerCommand('jumlt-renderer.newuml', () => {
-        const panel = vscode.window.createWebviewPanel("jumlt-renderer", "Jumlt Editor", vscode.ViewColumn.One, {});
-        panel.webview.html = require("./webview.html");
+        try {
+            const panel = vscode.window.createWebviewPanel("jumlt-renderer", "Jumlt Editor", vscode.ViewColumn.One, {});
+            panel.webview.html = require("./webview.html");
+        }
+        catch (e) {
+            console.log(e.message);
+            const panel = vscode.window.createWebviewPanel("jumlt-renderer", "Jumlt Editor", vscode.ViewColumn.One, {});
+            panel.webview.html = errorwebview();
+        }
     }));
     /*
     context.subscriptions.push(vscode.commands.registerCommand('jumlt-renderer.importuml', () => {
@@ -38,6 +45,19 @@ function activate(context) {
     */
 }
 exports.activate = activate;
+function errorwebview() {
+    return `<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Jumlt Editor</title>
+	</head>
+	<body>
+		<img src="https://http.cat/images/500.jpg">
+	</body>
+	</html>`;
+}
 function deactivate() { }
 exports.deactivate = deactivate;
 //# sourceMappingURL=extension.js.map
