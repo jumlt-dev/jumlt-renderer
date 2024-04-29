@@ -14,8 +14,25 @@
   "contributes": {
     "commands": [
       {
-        "command": "jumlt-renderer.helloWorld",
-        "title": "Hello World"
+        "command": "jumlt-renderer.newuml",
+        "title": "Create new UML",
+        "category": "Jumlt"
+      },
+      {
+        "command": "jumlt-renderer.importuml",
+        "title": "Import UML",
+        "category": "Jumlt"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "jumlt-renderer.editor",
+        "displayName": "Jumlt Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.uml"
+          }
+        ]
       }
     ]
   },
